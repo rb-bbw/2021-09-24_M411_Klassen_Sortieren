@@ -11,6 +11,7 @@ public class Main {
         task_1();
         task_2();
         task_4();
+        task_5();
     }
     private static void task_1(){
         int[] data_int = new int[100];
@@ -28,7 +29,7 @@ public class Main {
             data_Integer.add(i * rand.nextInt(10000));
         }
         start_time = System.nanoTime();
-        Collections.sort(data_Integer, Collections.reverseOrder());
+        data_Integer.sort(Collections.reverseOrder());
         end_time = System.nanoTime();
         System.out.println("Took " + (end_time - start_time) + " "+data_Integer);
     }
@@ -74,6 +75,20 @@ public class Main {
         System.out.print("\nTook " + (end_time - start_time));
         for(Account acc: accounts){
             System.out.print(" " + acc.getBalance());
+        }
+    }
+    private static void task_5(){
+        Account[] accounts = new Account[100];
+        for (int i = 0; i < 100; i++) {
+            accounts[i] = new Account(i + 1, (i * rand.nextInt(10000)), (i<50 ? "priv" : "pub"));
+        }
+
+        start_time = System.nanoTime();
+        Arrays.sort(accounts, new SortByTypeAscending().thenComparing(new SortByBalanceDescending()));
+        end_time = System.nanoTime();
+        System.out.print("\n\nTook " + (end_time - start_time));
+        for(Account acc: accounts){
+            System.out.print(" " + acc.getType() + ": " + acc.getBalance());
         }
     }
 
