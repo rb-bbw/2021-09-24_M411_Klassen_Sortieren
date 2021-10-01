@@ -1,38 +1,36 @@
 package ch.bbw;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 public class Main {
-    private static Random rand = new Random();
-    private static long start = 0;
-    private static long end = 0;
+    private static final Random rand = new Random();
+    private static long start_time = 0;
+    private static long end_time = 0;
 
     public static void main(String[] args) {
         task_1();
         task_2();
+        task_4();
     }
     private static void task_1(){
         int[] data_int = new int[100];
         for (int i = 0; i < 100; i++) {
             data_int[i] = i * rand.nextInt(10000);
         }
-        start = System.nanoTime();
+        start_time = System.nanoTime();
         Arrays.sort(data_int);
-        end = System.nanoTime();
-        System.out.println("Took " + (end-start) + " "+Arrays.toString(data_int));
+        end_time = System.nanoTime();
+        System.out.println("Took " + (end_time - start_time) + " "+Arrays.toString(data_int));
 
 
         ArrayList<Integer> data_Integer = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             data_Integer.add(i * rand.nextInt(10000));
         }
-        start = System.nanoTime();
+        start_time = System.nanoTime();
         Collections.sort(data_Integer, Collections.reverseOrder());
-        end = System.nanoTime();
-        System.out.println("Took " + (end-start) + " "+data_Integer);
+        end_time = System.nanoTime();
+        System.out.println("Took " + (end_time - start_time) + " "+data_Integer);
     }
     private static void task_2(){
         Account[] accounts = new Account[100];
@@ -40,21 +38,42 @@ public class Main {
             accounts[i] = new Account(i + 1, (i * rand.nextInt(10000)));
         }
 
-        start = System.nanoTime();
+        start_time = System.nanoTime();
         Account[] by_balance = insertionsort_balance(accounts.clone());
-        end = System.nanoTime();
-        System.out.println("Took " + (end-start));
+        end_time = System.nanoTime();
+        System.out.print("\nTook " + (end_time - start_time));
         for(Account acc: by_balance){
-            System.out.print(acc.getBalance() + " ");
+            System.out.print(" " + acc.getBalance());
         }
 
-        System.out.println();
-        start = System.nanoTime();
+        start_time = System.nanoTime();
         Account[] by_id = insertionsort_id(accounts.clone());
-        end = System.nanoTime();
-        System.out.println("Took " + (end-start));
+        end_time = System.nanoTime();
+        System.out.print("\nTook " + (end_time - start_time));
         for(Account acc: by_id){
-            System.out.print(acc.getId() + " ");
+            System.out.print(" " + acc.getId());
+        }
+    }
+    private static void task_4(){
+        Account[] accounts = new Account[100];
+        for (int i = 0; i < 100; i++) {
+            accounts[i] = new Account(i + 1, (i * rand.nextInt(10000)));
+        }
+
+        start_time = System.nanoTime();
+        Arrays.sort(accounts, new SortByBalanceAscending());
+        end_time = System.nanoTime();
+        System.out.print("\n\nTook " + (end_time - start_time));
+        for(Account acc: accounts){
+            System.out.print(" " + acc.getBalance());
+        }
+
+        start_time = System.nanoTime();
+        Arrays.sort(accounts, new SortByBalanceDescending());
+        end_time = System.nanoTime();
+        System.out.print("\nTook " + (end_time - start_time));
+        for(Account acc: accounts){
+            System.out.print(" " + acc.getBalance());
         }
     }
 

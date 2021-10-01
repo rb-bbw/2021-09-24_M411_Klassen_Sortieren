@@ -1,16 +1,16 @@
 package ch.bbw;
 
 public class Account {
-    private long id;
-    private long balance;
+    private Long id;
+    private Long balance;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
     public void setId(long id) {
         this.id = id;
     }
-    public long getBalance() {
+    public Long getBalance() {
         return balance;
     }
     public void setBalance(long balance) {
